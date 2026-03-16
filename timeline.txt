@@ -1,0 +1,5 @@
+timestamp | source | event
+------------------------------------------------------------------------
+2026-03-16T06:35:00+00:00 | auth | 5 failed SSH logins for user admin
+2026-03-16T06:40:00+00:00 | firewall | Inbound scan from 203.0.113.25
+2026-03-16T06:52:00+00:00 | endpoint | Suspicious process blocked by EDR

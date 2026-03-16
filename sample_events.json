@@ -1,0 +1,17 @@
+[
+  {
+    "timestamp": "2026-03-16T06:40:00Z",
+    "source": "firewall",
+    "event": "Inbound scan from 203.0.113.25"
+  },
+  {
+    "timestamp": "2026-03-16T06:35:00Z",
+    "source": "auth",
+    "event": "5 failed SSH logins for user admin"
+  },
+  {
+    "timestamp": "2026-03-16T06:52:00Z",
+    "source": "endpoint",
+    "event": "Suspicious process blocked by EDR"
+  }
+]

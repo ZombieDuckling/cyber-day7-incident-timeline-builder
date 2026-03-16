@@ -1,0 +1,4 @@
+timestamp,source,event
+2026-03-16T06:41:30Z,web,Unexpected admin panel request from external IP
+2026-03-16T06:48:15Z,dns,High volume queries to newly registered domain
+2026-03-16T06:54:45Z,siem,Alert escalated to analyst
