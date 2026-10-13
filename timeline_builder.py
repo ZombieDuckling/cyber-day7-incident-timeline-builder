@@ -9,7 +9,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -23,18 +23,27 @@ def parse_timestamp(raw: str) -> datetime:
 
     # Try ISO-8601 first
     try:
-        return datetime.fromisoformat(value)
+        parsed = datetime.fromisoformat(value)
     except ValueError:
-        pass
+        parsed = None
 
     # A couple of beginner-friendly fallback formats
-    for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M"):
-        try:
-            return datetime.strptime(value, fmt)
-        except ValueError:
-            continue
+    if parsed is None:
+        for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d %H:%M"):
+            try:
+                parsed = datetime.strptime(value, fmt)
+                break
+            except ValueError:
+                continue
 
-    raise ValueError(f"Unsupported timestamp format: {raw}")
+    if parsed is None:
+        raise ValueError(f"Unsupported timestamp format: {raw}")
+
+    # Treat timezone-naive values as UTC so fallback formats can be mixed safely
+    # with ISO 8601 values that include an explicit offset.
+    if parsed.tzinfo is None:
+        return parsed.replace(tzinfo=timezone.utc)
+    return parsed
 
 
 def detect_timestamp_key(record: dict[str, Any]) -> str:

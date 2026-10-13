@@ -36,8 +36,15 @@ defensive security learning and incident response practice.
   - Accepts `.json` or `.csv` input.
   - Detects common timestamp field names.
   - Parses ISO 8601 timestamps (including `Z`).
+  - Treats timezone-naive fallback timestamps as UTC so mixed timestamp styles
+    sort safely.
   - Sorts events by timestamp.
   - Prints timeline to terminal or writes to a file via `--output`.
+- `tests/test_timeline_builder.py`
+  - Characterizes JSON/CSV loading, timestamp parsing, sorting, rendering, and
+    CLI output behavior.
+- `.github/workflows/ci.yml`
+  - Runs the pytest suite on Python 3.10 and 3.12 for PRs and main pushes.
 - Sample input files:
   - `sample_events.json`
   - `sample_events.csv`
@@ -55,6 +62,15 @@ From this folder:
 python3 timeline_builder.py sample_events.json
 python3 timeline_builder.py sample_events.csv
 python3 timeline_builder.py sample_events.json --output timeline.txt
+```
+
+## How to test
+
+This project has no runtime dependencies. The test suite uses `pytest`:
+
+```bash
+python3 -m pip install pytest
+python3 -m pytest -q
 ```
 
 ## Example output
